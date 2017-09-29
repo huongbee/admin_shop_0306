@@ -10,6 +10,17 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('register',[
+	'as' => 'register',
+	'uses' => 'AdminController@getRegister'
+]);
+Route::post('register',[
+	'as' => 'register',
+	'uses' => 'AdminController@postRegister'
+]);
+
+
+
 Route::group(['prefix'=>'admin'],function(){
 
 	Route::get('/',[
