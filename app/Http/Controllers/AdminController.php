@@ -103,7 +103,8 @@ class AdminController extends Controller
                             'email'=>$req->email,
                             'password'=>$req->password
                         ];
-        if(Auth::attempt($infor_user)){
+        if(Auth::attempt($infor_user,$req->has('remember'))){
+            
             return redirect()->route('home');
         }
         else{
@@ -111,6 +112,11 @@ class AdminController extends Controller
         }
 
 
+    }
+
+    public function getLogout(){
+        Auth::logout();
+        return redirect()->route('login');
     }
 
 

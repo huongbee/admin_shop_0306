@@ -49,4 +49,10 @@ Route::group(['prefix'=>'admin'],function(){
 		'uses'=> 'AdminController@getEditUser'
 	]);
 
+
+	Route::get('logout',[
+		'as'=>'logout',
+		'uses' => 'AdminController@getLogout'
+	]);
+
 });
