@@ -11,7 +11,7 @@
     <link rel="shortcut icon" href="admin_theme/img/favicon.html">
 
     <title>FlatLab - Flat & Responsive Bootstrap Admin Template</title>
-
+    <base href="{{asset('')}}">
     <!-- Bootstrap core CSS -->
     <link href="admin_theme/css/bootstrap.min.css" rel="stylesheet">
     <link href="admin_theme/css/bootstrap-reset.css" rel="stylesheet">

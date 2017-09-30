@@ -79,4 +79,41 @@ class AdminController extends Controller
     	return view('pages.index',compact('type'));
     	//return view('pages.index',['type'=>$type]);
     }
+
+    public function getListUser(){
+        $users = User::all();
+        return view('pages.list-user',compact('users'));
+    }
+
+    public function getEditUser(Request $req){
+        $user = User::where('id',$req->id)->first();
+        if($user){
+            if($req->status == 0){
+                //active cho user
+                $user->active = 1;
+                $user->save();
+            }
+            elseif($req->status == 1){
+                //set admin
+                $user->role = 1;
+                $user->save();
+            }
+            else{
+                return redirect()->back()->with([
+                    'message'=>'Liên kết bạn nhập vào không hợp lệ',
+                    'flag' => 'danger'
+                ]);
+            }
+            return redirect()->back()->with([
+                'message'=>'Update thành công',
+                'flag' => 'success'
+            ]);
+        }
+        else{
+            return redirect()->back()->with([
+                'message'=>'không tồn tại user này',
+                'flag' => 'danger'
+            ]);
+        }
+    }
 }

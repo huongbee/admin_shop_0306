@@ -28,4 +28,14 @@ Route::group(['prefix'=>'admin'],function(){
 		'uses'=>'AdminController@getIndex'
 	]);
 
+	Route::get('list-user',[
+		'as' => 'list-user',
+		'uses'=> 'AdminController@getListUser'
+	]);
+
+	Route::get('edit-user/{id}/{status}',[
+		'as' => 'edit-user',
+		'uses'=> 'AdminController@getEditUser'
+	]);
+
 });
