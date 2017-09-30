@@ -24,10 +24,11 @@ Route::get('login',[
 	'as' => 'login',
 	'uses' => 'AdminController@getLogin'
 ]);
+
 Route::post('login',[
 	'as' => 'login',
 	'uses' => 'AdminController@postLogin'
-]);
+])->middleware('checkUserActive');
 
 
 

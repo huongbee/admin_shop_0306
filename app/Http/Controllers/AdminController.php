@@ -8,6 +8,7 @@ use ReCaptcha\ReCaptcha;
 use Validator;
 use App\User;
 use Hash;
+use Auth;
 
 class AdminController extends Controller
 {
