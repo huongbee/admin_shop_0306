@@ -72,6 +72,14 @@ class AdminController extends Controller
 		
 	}
 
+    public function getLogin(){
+        return view('login');
+    }
+
+
+
+
+
 
     public function getIndex(){
 

@@ -19,6 +19,15 @@ Route::post('register',[
 	'uses' => 'AdminController@postRegister'
 ]);
 
+Route::get('login',[
+	'as' => 'login',
+	'uses' => 'AdminController@getLogin'
+]);
+Route::post('login',[
+	'as' => 'login',
+	'uses' => 'AdminController@postLogin'
+]);
+
 
 
 Route::group(['prefix'=>'admin'],function(){
