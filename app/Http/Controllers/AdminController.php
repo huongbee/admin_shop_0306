@@ -77,6 +77,42 @@ class AdminController extends Controller
     }
 
 
+    public function postLogin(Request $req){
+        $data = $req->all();
+        $validator = Validator::make($data,[
+            'email' => 'required|email',
+            'password' => 'required|min:6|max:20',
+        ],
+        [
+            'email.email' => 'Email không đúng định dạng',
+            //
+            //
+            //
+            //
+            //
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('login')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $infor_user =   [ 
+                            'email'=>$req->email,
+                            'password'=>$req->password
+                        ];
+        if(Auth::attempt($infor_user)){
+            return redirect()->route('home');
+        }
+        else{
+            return redirect()->back()->with('loi','Đăng nhập ko thành công');
+        }
+
+
+    }
+
+
 
 
 

@@ -29,14 +29,13 @@
     <div class="container">
         <div class="card card-container">
             <h2>Đăng nhập Quản trị viên</h2>
-            <?php
-            // if(isset($validator)){
-            //     $errors = $validator->errors();
-            //     print_r($errors);
-            // }
             
+            @if(Session::has('loi'))
+                <div class="alert alert-danger"> 
+                    {{Session::get('loi')}}
+                </div>
+            @endif
 
-            ?>
             @if($errors->any())
                 <div class="alert alert-danger"> 
                     @foreach($errors->all() as $loi)
