@@ -282,27 +282,24 @@
             </div>
         </header>
       <!--header end-->
+
       <!--sidebar start-->
       <aside>
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
                   <li>
-                      <a class="active" href="index.html">
+                      <a  href="{{route('home')}}"> {{-- http://localhost/shop0306/public/admin --}}
                           <i class="fa fa-dashboard"></i>
                           <span>Dashboard</span>
                       </a>
                   </li>
 
                   <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class=" fa fa-envelope"></i>
-                          <span>Mail</span>
+                      <a href="{{route('list-user')}}" >
+                          <i class=" fa fa-user"></i>
+                          <span>List Users</span>
                       </a>
-                      <ul class="sub">
-                          <li><a  href="inbox.html">Inbox</a></li>
-                          <li><a  href="inbox_details.html">Inbox Details</a></li>
-                      </ul>
                   </li>
                   <li class="sub-menu">
                       <a href="javascript:;" >
@@ -425,7 +422,13 @@
       $(function(){
           $('select.styled').customSelect();
       });
-
+  $(function() {
+    var pageUrl = "<?=__URL__;?>"
+    $("#nav-accordion li a").each(function(){
+        if($(this).attr("href") == pageUrl || $(this).attr("href") == '' )
+            $(this).addClass("active");
+     })
+  });
   </script>
 
   </body>

@@ -9,6 +9,7 @@ use Validator;
 use App\User;
 use Hash;
 use Auth;
+use App\Products;
 
 class AdminController extends Controller
 {
@@ -127,13 +128,13 @@ class AdminController extends Controller
     public function getIndex(){
 
     	$type = TypeProducts::all();
-    	return view('pages.index',compact('type'));
+    	return view('pages.index',compact('type','active'));
     	//return view('pages.index',['type'=>$type]);
     }
 
     public function getListUser(){
         $users = User::all();
-        return view('pages.list-user',compact('users'));
+        return view('pages.list-user',compact('users','active'));
     }
 
     public function getEditUser(Request $req){
@@ -165,6 +166,33 @@ class AdminController extends Controller
                 'message'=>'không tồn tại user này',
                 'flag' => 'danger'
             ]);
+        }
+    }
+
+
+    public function getListProductByIdType(Request $req){
+        $type = TypeProducts::select('name')->where('id',$req->id)->first();
+        //dd($type); die;
+        if($type){
+            $products = Products::where('id_type',$req->id)->paginate(5);
+            if($products){
+                return view('pages.list-product',compact('products','type'));
+            }
+            return redirect()->route('home')->with('error','Không thể xử lý yêu cầu.');
+        }
+        else{
+            return redirect()->route('home')->with('error','Không thể xử lý yêu cầu.');
+        }
+        
+    }
+
+    public function getEditTypeByIdType(Request $req){
+        $type = TypeProducts::where('id',$req->id)->first();
+        if($type){
+            return view('pages.edit-type',compact('type'));
+        }
+        else{
+            return redirect()->route('home')->with('error','Không thể xử lý yêu cầu.');
         }
     }
 }

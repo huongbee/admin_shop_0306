@@ -32,12 +32,24 @@ Route::post('login',[
 
 
 
-Route::group(['prefix'=>'admin'],function(){
+Route::group(['prefix'=>'admin','middleware'=>'checkAdminLogin'],function(){
 
 	Route::get('/',[
 		'as'=>'home',
 		'uses'=>'AdminController@getIndex'
 	]);
+
+	Route::get('list-product-type-{id}',[
+		'as'=>'list-product',
+		'uses'=>'AdminController@getListProductByIdType'
+	])->where(['id'=>'[0-9]+']);
+
+	Route::get('edit-type-{id}',[
+		'as'=>'edit-type',
+		'uses'=>'AdminController@getEditTypeByIdType'
+	]);
+	//================================================ //
+
 
 	Route::get('list-user',[
 		'as' => 'list-user',

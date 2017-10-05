@@ -9,6 +9,18 @@
 
 define('LARAVEL_START', microtime(true));
 
+//echo LARAVEL_START;
+//print_r($_SERVER);
+$host = $_SERVER['HTTP_HOST']; //localhost
+$port = $_SERVER['SERVER_PORT']; // 80
+
+$uri = $_SERVER['REQUEST_URI']; // /shop0306/public/admin
+$scheme = $_SERVER['REQUEST_SCHEME']; //http , https
+
+$fullUrl = "$scheme://$host$uri";
+
+define('__URL__',$fullUrl);
+//echo __URL__;
 /*
 |--------------------------------------------------------------------------
 | Register The Auto Loader
