@@ -304,13 +304,11 @@
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class=" fa fa-bar-chart-o"></i>
-                          <span>Charts</span>
+                          <span>Type Product</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="morris.html">Morris</a></li>
-                          <li><a  href="chartjs.html">Chartjs</a></li>
-                          <li><a  href="flot_chart.html">Flot Charts</a></li>
-                          <li><a  href="xchart.html">xChart</a></li>
+                          <li><a  href="{{route('add-type')}}">Add</a></li>
+                          <li><a  href="{{route('home')}}">View All</a></li>
                       </ul>
                   </li>
                   <li class="sub-menu">

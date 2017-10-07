@@ -33,7 +33,7 @@ define('__URL__',$fullUrl);
 |
 */
 
-require __DIR__.'/../vendor/autoload.php';
+require __DIR__.'/primarySource/vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -47,7 +47,7 @@ require __DIR__.'/../vendor/autoload.php';
 |
 */
 
-$app = require_once __DIR__.'/../bootstrap/app.php';
+$app = require_once __DIR__.'/primarySource/bootstrap/app.php';
 
 /*
 |--------------------------------------------------------------------------

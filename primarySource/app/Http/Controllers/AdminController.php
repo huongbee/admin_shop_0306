@@ -195,4 +195,70 @@ class AdminController extends Controller
             return redirect()->route('home')->with('error','Không thể xử lý yêu cầu.');
         }
     }
+
+    public function postEditTypeByIdType(Request $req){
+        //validate
+
+
+        $type = TypeProducts::where('id',$req->id)->first();
+        if($type){
+            $type->name = $req->name;
+            $type->description = $req->desc;
+            if($req->hasFile('hinh')){
+                $hinh = $req->file('hinh');
+
+                $nameFile = time().'-'.$hinh->getClientOriginalName();
+                $hinh->move('admin_theme/img/product',$nameFile);
+
+                //lưu tên của hình vào db
+                $type->image = $nameFile;
+            }
+            $type->save();
+            return redirect()->route('home')->with('success','Lưu thành công.');
+        }
+        else{
+            return redirect()->route('home')->with('error','Không thể xử lý yêu cầu.');
+        }
+    }
+
+    public function getAddTypeProduct(){
+        return view('pages.add_type');
+    }
+
+    public function postAddTypeProduct(Request $req){
+        //validate
+
+        $type = new TypeProducts;
+
+        $type->name = $req->name;
+        $type->description = $req->desc;
+
+        if($req->hasFile('hinh')){
+            $hinh = $req->file('hinh');
+
+            $nameFile = time().'-'.$hinh->getClientOriginalName();
+            $hinh->move('admin_theme/img/product',$nameFile);
+
+            //lưu tên của hình vào db
+            $type->image = $nameFile;
+        }
+        $type->save();
+        return redirect()->route('home')->with('success','Lưu thành công.');
+        
+        
+    }
+
+    public function postDeleteTypeProduct(Request $req){
+        $type = TypeProducts::where('id',$req->id)->first();
+        $products = Products::where('id_type',$req->id)->get();
+
+        if($type && count($products)<=0){
+
+            $type->delete();
+            echo 'done';
+        }
+        else{
+            echo 'error';
+        }
+    }
 }

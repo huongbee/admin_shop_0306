@@ -48,7 +48,27 @@ Route::group(['prefix'=>'admin','middleware'=>'checkAdminLogin'],function(){
 		'as'=>'edit-type',
 		'uses'=>'AdminController@getEditTypeByIdType'
 	]);
-	//================================================ //
+	
+	Route::post('edit-type-{id}',[
+		'as'=>'edit-type',
+		'uses'=>'AdminController@postEditTypeByIdType'
+	]);
+
+
+	Route::get('add-type',[
+		'as'=>'add-type',
+		'uses'=>'AdminController@getAddTypeProduct'
+	]);
+	Route::post('add-type',[
+		'as'=>'add-type',
+		'uses'=>'AdminController@postAddTypeProduct'
+	]);
+
+	Route::post('delete-type',[
+		'as'=>'delete-type',
+		'uses'=>'AdminController@postDeleteTypeProduct'
+	]);
+
 
 
 	Route::get('list-user',[

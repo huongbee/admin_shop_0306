@@ -5,7 +5,8 @@
         <div class="panel panel-default">
             <div class="panel-heading"><h3>Sửa thông tin loại {{$type->name}}</h3></div>
             <div class="panel-body">
-            	<form class="form-horizontal">
+            	<form class="form-horizontal" method="POST" action="{{route('edit-type',$type->id)}}" enctype="multipart/form-data">
+            		{{csrf_field()}}
 				  <div class="form-group">
 				    <label class="control-label col-sm-1" >Tên loại:</label>
 				    <div class="col-sm-11">
