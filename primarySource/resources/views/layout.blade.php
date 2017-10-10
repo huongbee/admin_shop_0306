@@ -312,19 +312,15 @@
                       </ul>
                   </li>
                   <li class="sub-menu">
-                      <a href="javascript:;" >
+                      <a href="{{route('export-products')}}" >
                           <i class="fa fa-shopping-cart"></i>
-                          <span>Shop</span>
+                          <span>Xuất thông tin SP</span>
                       </a>
-                      <ul class="sub">
-                          <li><a  href="product_list.html">List View</a></li>
-                          <li><a  href="product_details.html">Details View</a></li>
-                      </ul>
                   </li>
-                  <li>
-                      <a href="google_maps.html" >
-                          <i class="fa fa-map-marker"></i>
-                          <span>Google Maps </span>
+                  <li class="sub-menu">
+                      <a href="{{route('export-products-multisheet')}}" >
+                          <i class="fa fa-shopping-cart"></i>
+                          <span>Xuất thông tin SP theo loại</span>
                       </a>
                   </li>
 

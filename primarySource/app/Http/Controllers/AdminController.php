@@ -10,6 +10,8 @@ use App\User;
 use Hash;
 use Auth;
 use App\Products;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class AdminController extends Controller
 {
@@ -119,10 +121,6 @@ class AdminController extends Controller
         Auth::logout();
         return redirect()->route('login');
     }
-
-
-
-
 
 
     public function getIndex(){
@@ -260,5 +258,86 @@ class AdminController extends Controller
         else{
             echo 'error';
         }
+    }
+
+    public function getExportProducts(){
+        $products = Products::all();
+
+        return Excel::create('namefile', function($excel) use ($products) {
+            
+            $excel->sheet('nameSheet', function($sheet) use ($products)
+            {
+                $sheet->fromArray($products, null, 'A1', false, false);
+
+                $headings = array('ID Sản phẩm', 'Tên sản phẩm', 'Mã loại' ,'Mô tả', 'Đơn giá', 'Đơn giá KM', 'Hình' , 'Đơn vị tính', 'Ngày tạo', 'Ngày sửa');
+                $sheet->prependRow(1, $headings);
+            });
+        })->download('xlsx');
+    }
+
+    public function getExportProductsMultisheet(){
+        $types = TypeProducts::with('Products')->get();
+
+        return Excel::create('namefile', function($excel) use ($types) {
+            
+            foreach ($types as $loaiSP) {
+
+                $excel->sheet("$loaiSP->name", function($sheet) use ($loaiSP)
+                {
+                    $sheet->fromArray($loaiSP->Products, null, 'A1', false, false);
+
+
+                    $headings = array('ID Sản phẩm', 'Tên sản phẩm', 'Mã loại' ,'Mô tả', 'Đơn giá', 'Đơn giá KM', 'Hình' , 'Đơn vị tính', 'Ngày tạo', 'Ngày sửa');
+                    $sheet->cells("A1:J1", function($cells) {
+                        $cells->setBackground('#8af2ee');
+                    });
+                    $sheet->prependRow(1, $headings);
+                });
+            }
+        })->download('xlsx');
+    }
+
+    public function getViewImport(){
+        return view('pages.import');
+    }
+
+    public function import(Request $req){
+
+        $excel = [];
+        Excel::load($req->file('file'), function ($reader) use (&$excel) {
+            $objExcel = $reader->getExcel();
+            $sheet = $objExcel->getSheet(0);
+            $highestRow = $sheet->getHighestRow();
+            $highestColumn = $sheet->getHighestColumn();
+
+            //  Loop through each row of the worksheet in turn
+            //lặp từ dòng 3 trong file excel
+            for ($row = 3; $row <= $highestRow; $row++)
+            {
+                //  Read a row of data into an array
+                $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row,
+                    NULL, TRUE, FALSE);
+                $excel[] = $rowData[0];
+            }
+
+        }); 
+        //dd($excel);
+
+        foreach ($excel as $data) {
+            $product = new Products;
+            $product->name = $data[1];
+            $product->id_type = $data[2];
+            $product->description = $data[3];
+            $product->unit_price = $data[4];
+            $product->promotion_price = $data[5];
+            $product->image = $data[6];
+            $product->unit = $data[7];
+            $product->created_at = $data[8];
+            $product->updated_at = $data[9];
+            $product->save();
+
+        }
+        echo 'thêm thành công';
+        
     }
 }

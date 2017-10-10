@@ -87,4 +87,23 @@ Route::group(['prefix'=>'admin','middleware'=>'checkAdminLogin'],function(){
 		'uses' => 'AdminController@getLogout'
 	]);
 
+	Route::get('export-products',[
+		'as' => 'export-products',
+		'uses'=> 'AdminController@getExportProducts'
+	]);
+
+	Route::get('export-products-multisheet',[
+		'as' => 'export-products-multisheet',
+		'uses'=> 'AdminController@getExportProductsMultisheet'
+	]);
+
+	Route::get('import-products',[
+		'as' => 'import-products',
+		'uses'=> 'AdminController@getViewImport'
+	]);
+
+	Route::post('import-products',[
+		'as' => 'import-products',
+		'uses'=> 'AdminController@import'
+	]);
 });
